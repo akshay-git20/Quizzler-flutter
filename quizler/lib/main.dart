@@ -33,12 +33,13 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scorekeeper = [];
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
+      children: [
         Expanded(
           flex: 5,
           child: Padding(
@@ -61,12 +62,15 @@ class _QuizPageState extends State<QuizPage> {
             child: TextButton(
               child: Text(
                 'True',
-                style: TextStyle( 
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
                 ),
               ),
               onPressed: () {
+                setState(() {
+                  scorekeeper.add(Icon(Icons.check,color: Colors.red,));
+                });
                 //The user picked true.
               },
             ).color(Colors.green),
@@ -85,10 +89,19 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                setState(() {
+                  scorekeeper.add(Icon(Icons.close,color: Colors.green,));
+                });
               },
             ).color(Colors.red),
           ),
         ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: scorekeeper,
+          ).expand(),
+        )
         //TODO: Add a Row here as your score keeper
       ],
     );
@@ -100,4 +113,3 @@ question1: 'You can lead a cow down stairs but not up stairs.', false,
 question2: 'Approximately one quarter of human bones are in the feet.', true,
 question3: 'A slug\'s blood is green.', true,
 */
-
