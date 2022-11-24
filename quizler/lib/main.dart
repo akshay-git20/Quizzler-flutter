@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:quizler/quetion_ans.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 void main() {
@@ -33,7 +36,13 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Quetionans> quetionans=[
+    Quetionans(quetion: 'You can lead a cow down stairs but not up stairs.', answer: false),
+    Quetionans(quetion: 'Approximately one quarter of human bones are in the feet.', answer: true),
+    Quetionans(quetion: 'A slug\'s blood is green.', answer: true),
+  ];
   List<Icon> scorekeeper = [];
+  int a = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,7 +55,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quetionans[a].quetion,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -69,7 +78,17 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  scorekeeper.add(Icon(Icons.check,color: Colors.red,));
+                  quetionans[a].answer == true
+                      ? scorekeeper.add(Icon(
+                          Icons.check,
+                          color: Colors.red,
+                        ))
+                      : scorekeeper.add(Icon(
+                          Icons.close,
+                          color: Colors.green,
+                        ));
+
+                  a = (a + 1) % 3;
                 });
                 //The user picked true.
               },
@@ -90,7 +109,16 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 setState(() {
-                  scorekeeper.add(Icon(Icons.close,color: Colors.green,));
+                  quetionans[a].answer != true
+                      ? scorekeeper.add(Icon(
+                          Icons.check,
+                          color: Colors.red,
+                        ))
+                      : scorekeeper.add(Icon(
+                          Icons.close,
+                          color: Colors.green,
+                        ));
+                  a = (a + 1) % 3;
                 });
               },
             ).color(Colors.red),
