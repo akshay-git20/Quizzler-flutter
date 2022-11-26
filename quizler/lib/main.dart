@@ -128,7 +128,7 @@ class _QuizPageState extends State<QuizPage> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: scorekeeper,
-          ).expand(),
+          ),
         )
         //TODO: Add a Row here as your score keeper
       ],
